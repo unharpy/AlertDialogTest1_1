@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 final String[] foodItems = {"떡볶이", "무침만두", "순대"};
                 AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
                 dlg.setTitle("인공지능소프트웨어과 공지사항");
-                dlg.setItems(foodItems, new DialogInterface.OnClickListener() {
+                dlg.setSingleChoiceItems(foodItems, 0,new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         btn1.setText(foodItems[which]);
@@ -54,6 +54,24 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+//                dlg.setItems(foodItems, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        btn1.setText(foodItems[which]);
+//                        // 이미지 변경
+//                        switch (which) {
+//                            case 0: // 떡볶이
+//                                imageView.setImageResource(R.drawable.ddok);
+//                                break;
+//                            case 1: // 무침만두
+//                                imageView.setImageResource(R.drawable.dumpling);
+//                                break;
+//                            case 2: // 순대
+//                                imageView.setImageResource(R.drawable.sundae);
+//                                break;
+//                        }
+//                    }
+//                });
                 dlg.setIcon(R.drawable.kitty);
                 dlg.setPositiveButton("닫기", null);
                 dlg.show();
