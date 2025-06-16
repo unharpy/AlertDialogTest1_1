@@ -1,10 +1,9 @@
 package kr.ac.kopo.alertdialogtest1;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -14,6 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ImageView imageView; // 이미지뷰 전역 선언
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,21 +26,36 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         Button btn1 = findViewById(R.id.btn1);
+        imageView = findViewById(R.id.imgview1);  // 이미지뷰 연결
+
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this); // 문맥객체로 사용가능 : 액티비티 클래스를 앞에 붙여야 문맥객체로써 사용가능
+                final String[] foodItems = {"떡볶이", "무침만두", "순대"};
+                AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
                 dlg.setTitle("인공지능소프트웨어과 공지사항");
-                dlg.setMessage("513호에 학과 학생이 만약에 있다면 우리과 학생이 사용해야 한다고 친절하게 양해를 구하면 됩니다.");
-                dlg.setIcon(R.drawable.kitty);
-                dlg.setPositiveButton("확인",null);
-                dlg.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                dlg.setItems(foodItems, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(MainActivity.this, "취소버튼이 선택되었습니다.",Toast.LENGTH_SHORT).show(); //show를 해야이 Toast가 보인다
+                        btn1.setText(foodItems[which]);
+                        // 이미지 변경
+                        switch (which) {
+                            case 0: // 떡볶이
+                                imageView.setImageResource(R.drawable.ddok);
+                                break;
+                            case 1: // 무침만두
+                                imageView.setImageResource(R.drawable.dumpling);
+                                break;
+                            case 2: // 순대
+                                imageView.setImageResource(R.drawable.sundae);
+                                break;
+                        }
                     }
                 });
+                dlg.setIcon(R.drawable.kitty);
+                dlg.setPositiveButton("닫기", null);
                 dlg.show();
             }
         });
