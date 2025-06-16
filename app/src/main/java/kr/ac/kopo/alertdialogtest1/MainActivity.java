@@ -34,23 +34,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String[] foodItems = {"떡볶이", "무침만두", "순대"};
+                final int[] imgRes = {R.drawable.ddok, R.drawable.dumpling, R.drawable.sundae};
+                final  boolean[] checkArray = {true, false, false};
                 AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
                 dlg.setTitle("인공지능소프트웨어과 공지사항");
-                dlg.setSingleChoiceItems(foodItems, 0,new DialogInterface.OnClickListener() {
+                dlg.setMultiChoiceItems(foodItems, checkArray, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        btn1.setText(foodItems[which]);
-                        // 이미지 변경
-                        switch (which) {
-                            case 0: // 떡볶이
-                                imageView.setImageResource(R.drawable.ddok);
-                                break;
-                            case 1: // 무침만두
-                                imageView.setImageResource(R.drawable.dumpling);
-                                break;
-                            case 2: // 순대
-                                imageView.setImageResource(R.drawable.sundae);
-                                break;
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if(isChecked){
+                            btn1.setText(foodItems[which]);
+                            imageView.setImageResource(imgRes[which]);
                         }
                     }
                 });
